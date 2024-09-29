@@ -14,3 +14,5 @@ require('./bootstrap');
  */
 
 require('./components/Example');
+require('./navigation/Navbar')
+require('./pages/RegisterPage')

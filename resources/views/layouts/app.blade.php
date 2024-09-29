@@ -18,66 +18,60 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+        @auth
+            <div id="navbar" data-auth="true" data-role="{{ Auth::user()->user_role }}" data-user="{{ Auth::user() }}">
             </div>
-        </nav>
-
-        <main class="py-4">
+        @endauth
+        @guest
+            <div id="navbar" data-auth="false">
+            </div>
+        @endguest
+        {{-- <main class="pl-24 pr-16" id="mainContent" style="
+        margin-left: 
+        @guest
+            25px;
+        @else
+            100px
+        @endguest margin-right: 25px">
             @yield('content')
-        </main>
+        </main> --}}
+
+        @guest
+            <main id="mainContent">
+                @yield('content')
+            </main>
+        @endguest
+
+        @auth
+            <main class="pl-24 pr-16" id="mainContent" style="margin-left: 100px; margin-right: 25px">
+                @yield('content')
+            </main>
+        @endauth
     </div>
+    <script>
+        $(document).ready(() => {
+            // FOR OPENING DRAWER
+            $(".css-p55zm9-MuiButtonBase-root-MuiIconButton-root").click(() => {
+                // console.log($(".MuiDrawer-paperAnchorLeft").width())
+                $("#mainContent").stop().animate({
+                    marginLeft: 275
+                }, 250)
+                $("#mainContent").removeClass('pl-24')
+            })
+            // FOR CLOSING DRAWER
+            $(".css-78trlr-MuiButtonBase-root-MuiIconButton-root").click(() => {
+                // console.log($(".MuiDrawer-paperAnchorLeft").width())
+                $("#mainContent").stop().animate({
+                    marginLeft: 100
+                }, 250)
+            })
+        })
+    </script>
 </body>
 </html>
