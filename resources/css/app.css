@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input {
+    --tw-ring-shadow: 0 0 #000 !important;
+}
+
+textarea {
+    --tw-ring-shadow: 0 0 #000 !important;
+}
+
+select {
+    --tw-ring-shadow: 0 0 #000 !important;
+}
