@@ -39,9 +39,11 @@ const CedulaCertificates = ({user}) => {
     return (
         <>
             <div className="w-full flex justify-end">
-                <Button variant="contained" color="success" onClick={() => {
-                    location.href = "/addcedula"
-                }}>Add Document</Button>
+                {userObject.user_role != 1 && (
+                    <Button variant="contained" color="success" onClick={() => {
+                        location.href = "/addcedula"
+                    }}>Add Document</Button>
+                )}
             </div>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">

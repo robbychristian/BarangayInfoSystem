@@ -234,7 +234,7 @@ export default function Navbar({ auth, role, user }) {
                     <div className="flex justify-between w-full">
                         {/* NAVBAR CONTENT START */}
                         <Typography variant="h6" noWrap component="div">
-                            Barangay System
+                            Bayani Act
                         </Typography>
                         <div className="flex gap-4 justify-center items-center">
                             {auth ? (

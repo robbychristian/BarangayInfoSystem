@@ -88,7 +88,9 @@ const UserManagement = () => {
                             </TableCell>
                             <TableCell>{row.profile.user_gender}</TableCell>
                             <TableCell>
-                                <Button onClick={() => verifyUser(row.id)}>Verify</Button>
+                                {row.is_verified == 0 && (
+                                    <Button onClick={() => verifyUser(row.id)}>Verify</Button>
+                                )}
                             </TableCell>
                         </TableRow>
                     ))}
