@@ -22,6 +22,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('user_barangay')->nullable();
             $table->string('user_gender');
             $table->string('user_religion');
+            $table->string('valid_id');
             $table->timestamps();
         });
     }

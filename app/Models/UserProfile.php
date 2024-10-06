@@ -17,5 +17,6 @@ class UserProfile extends Model
         'user_barangay',
         'user_gender',
         'user_religion',
+        'valid_id',
     ];
 }

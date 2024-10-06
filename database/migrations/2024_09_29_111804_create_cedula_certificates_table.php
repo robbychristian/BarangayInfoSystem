@@ -21,6 +21,7 @@ class CreateCedulaCertificatesTable extends Migration
             $table->string("occupation");
             $table->string("salary");
             $table->string("tin_id");
+            $table->string("cedula_status");
             $table->timestamps();
         });
     }

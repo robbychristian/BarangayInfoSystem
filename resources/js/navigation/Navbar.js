@@ -27,6 +27,9 @@ import VaccinesIcon from "@mui/icons-material/Vaccines";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import ArticleIcon from '@mui/icons-material/Article';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+
 import { ToastContainer, toast } from "react-toastify";
 import {
     AccountCircle,
@@ -37,6 +40,7 @@ import {
     Logout,
     ManageAccounts,
 } from "@mui/icons-material";
+import { api } from "../config/api";
 
 const drawerWidth = 240;
 
@@ -143,73 +147,34 @@ export default function Navbar({ auth, role, user }) {
                       icon: <BarChart />,
                   },
                   {
-                      name: "Inventory Management",
-                      url: "inventorymanagement",
+                      name: "Cedula Certificates",
+                      url: "cedulacertificates",
                       icon: (
-                          <Badge badgeContent={inventoryNotif} color="primary">
-                              <MedicationIcon />
-                          </Badge>
+                              <ArticleIcon />
                       ),
                   },
                   {
-                      name: "Health Care Centers",
-                      url: "healthcarecenter",
-                      icon: <LocalHospitalIcon />,
-                  },
-                  {
-                      name: "Health Care Users",
-                      url: "healthcareusers",
-                      icon: <HowToRegIcon />,
-                  },
-                  {
-                      name: "Medicine Requests",
-                      url: "medicinerequests",
+                      name: "User Management",
+                      url: "usermanagement",
                       icon: (
-                          <Badge badgeContent={medicineRequest} color="primary">
-                              <VaccinesIcon color="action" />
-                          </Badge>
+                              <PeopleAltIcon />
                       ),
                   },
               ]
             : role == 2
             ? [
-                  {
-                      name: "Dashboard",
-                      url: "home",
-                      icon: <BarChart />,
-                  },
-                  {
-                      name: "Inventory Management",
-                      url: "inventorymanagement",
-                      icon: (
-                          <Badge badgeContent={inventoryNotif} color="primary">
-                              <MedicationIcon />
-                          </Badge>
-                      ),
-                  },
-                  {
-                      name: "Medicine Requests",
-                      url: "medicinerequests",
-                      icon: (
-                          <Badge badgeContent={medicineRequest} color="primary">
-                              <VaccinesIcon color="action" />
-                          </Badge>
-                      ),
-                  },
-                  {
-                      name: "Manage User Accounts",
-                      url: "registeredusers",
-                      icon: <ManageAccounts />,
-                  },
-                  {
-                      name: "User Requests",
-                      url: "usermedicinerequest",
-                      icon: (
-                          <Badge badgeContent={userRequest} color="primary">
-                              <GroupAddIcon color="action" />
-                          </Badge>
-                      ),
-                  },
+                {
+                    name: "Dashboard",
+                    url: "home",
+                    icon: <BarChart />,
+                },
+                {
+                    name: "Cedula Certificates",
+                    url: "cedulacertificates",
+                    icon: (
+                            <ArticleIcon />
+                    ),
+                },
               ]
             : [
                   //   {
@@ -227,14 +192,12 @@ export default function Navbar({ auth, role, user }) {
                       icon: <BarChart />,
                   },
                   {
-                      name: "User Requests",
-                      url: "usermedicinerequest",
-                      icon: (
-                          <Badge badgeContent={userRequest} color="primary">
-                              <GroupAddIcon color="action" />
-                          </Badge>
-                      ),
-                  },
+                    name: "Cedula Certificates",
+                    url: "cedulacertificates",
+                    icon: (
+                            <ArticleIcon />
+                    ),
+                },
               ];
 
     const handleDrawerClose = () => {

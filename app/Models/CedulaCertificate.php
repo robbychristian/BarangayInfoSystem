@@ -16,5 +16,11 @@ class CedulaCertificate extends Model
         'occupation',
         'salary',
         'tin_id',
+        'cedula_status',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
