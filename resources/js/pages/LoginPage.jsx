@@ -1,22 +1,45 @@
-import { Button, Card, CardActions, CardContent, TextField, Typography } from "@mui/material";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    TextField,
+    Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { api } from "../config/api";
 
 const LoginPage = () => {
-    const [data, setData] = useState({})
+    const [data, setData] = useState({});
     const onSubmit = () => {
-        api.post('login', data)
+        api.get(`usermanagement/checkverification?email=${data.email}`)
             .then((response) => {
-                toast.success('Login Successfully!', {
-                    autoClose: 3000,
-                })
-                location.href = '/home'
-            }).catch((err) => {
-                toast.error("These credentials do not match our records.")
+                if (response.data) {
+                    api.post("login", data)
+                        .then((response) => {
+                            toast.success("Login Successfully!", {
+                                autoClose: 3000,
+                            });
+                            location.href = "/home";
+                        })
+                        .catch((err) => {
+                            toast.error(
+                                "These credentials do not match our records."
+                            );
+                        });
+                } else {
+                    toast("Please verify your account first!", {
+                        type: "warning",
+                        autoClose: 3000,
+                    });
+                }
             })
-    }
+            .catch((err) => {
+                console.log(err.response);
+            });
+    };
     return (
         <div className="h-[80vh] w-full">
             {/* <ToastContainer /> */}
@@ -41,27 +64,27 @@ const LoginPage = () => {
                         </Typography>
 
                         <div className="my-2">
-                            <TextField 
+                            <TextField
                                 fullWidth
                                 value={data.email}
                                 onChange={(e) => {
                                     setData({
                                         ...data,
-                                        email: e.target.value
-                                    })
+                                        email: e.target.value,
+                                    });
                                 }}
                                 label="Email"
                             />
                         </div>
                         <div className="my-2">
-                            <TextField 
+                            <TextField
                                 fullWidth
                                 value={data.password}
                                 onChange={(e) => {
                                     setData({
                                         ...data,
-                                        password: e.target.value
-                                    })
+                                        password: e.target.value,
+                                    });
                                 }}
                                 type="password"
                                 label="Password"
@@ -69,7 +92,14 @@ const LoginPage = () => {
                         </div>
                     </CardContent>
                     <CardActions>
-                        <Button variant="contained" fullWidth color="primary" onClick={onSubmit}>LOGIN</Button>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                            onClick={onSubmit}
+                        >
+                            LOGIN
+                        </Button>
                     </CardActions>
                 </Card>
             </div>

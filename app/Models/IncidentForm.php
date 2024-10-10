@@ -18,4 +18,9 @@ class IncidentForm extends Model
         'respondent_contact_no',
         'respondent_age',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

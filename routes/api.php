@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Crud\DocumentSubmissionController;
+use App\Http\Controllers\Crud\IncidentComplaints;
 use App\Http\Controllers\Crud\UserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,10 +28,16 @@ Route::prefix('usermanagement')->group(function() {
     Route::get('getallresidents', [UserManagementController::class, 'getAllResidents']);
     Route::get('getuserdetails', [UserManagementController::class, 'getUserDetails']);
     Route::post('verifyuser', [UserManagementController::class, 'verifyUser']);
+    Route::get('checkverification', [LoginController::class, 'checkVerification']);
 });
 
 Route::prefix('documents')->group(function () {
     Route::get('getallcedulas', [DocumentSubmissionController::class, 'getAllCedulas']);
+    Route::get('getcedula', [DocumentSubmissionController::class, 'getCedula']);
     Route::get('getresidentcedulas', [DocumentSubmissionController::class, 'getResidentCedulas']);
     Route::post('submitcedula', [DocumentSubmissionController::class, 'submitCedula']);
+    Route::post('approvecedula', [DocumentSubmissionController::class, 'approveData']);
+
+    Route::post('addincidentcomplaint', [IncidentComplaints::class, 'addIncidentComplaint']);
+    Route::get('getallincidentreport', [IncidentComplaints::class, 'getAllIncidentReport']);
 });

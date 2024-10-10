@@ -16,4 +16,11 @@ class DocumentSubmissionController extends Controller
     {
         return view('DocumentSubmissions.AddCedulaCertificate');
     }
+
+    public function viewCedula(Request $request)
+    {
+        return view('DocumentSubmissions.ViewCedula', [
+            'id' => $request->id
+        ]);
+    }
 }

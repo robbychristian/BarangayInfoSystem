@@ -34,6 +34,7 @@ const AddCedulaCertificate = ({ user }) => {
                         autoClose: 3000,
                         type: "success",
                     });
+                    location.href = "/cedulacertificates"
                 })
                 .catch(err => {
                     console.log(err.response)
@@ -108,7 +109,7 @@ const AddCedulaCertificate = ({ user }) => {
                             <div className="col-span-1">
                                 <TextField
                                     fullWidth
-                                    label="Height"
+                                    label="Height (cm)"
                                     value={data.height}
                                     onChange={(e) =>
                                         setData({
@@ -121,7 +122,7 @@ const AddCedulaCertificate = ({ user }) => {
                             <div className="col-span-1">
                                 <TextField
                                     fullWidth
-                                    label="Weight"
+                                    label="Weight (kg)"
                                     value={data.weight}
                                     onChange={(e) =>
                                         setData({

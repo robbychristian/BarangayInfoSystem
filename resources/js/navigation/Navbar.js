@@ -154,6 +154,13 @@ export default function Navbar({ auth, role, user }) {
                       ),
                   },
                   {
+                      name: "Incident Complaints",
+                      url: "incidentcomplaints",
+                      icon: (
+                              <ArticleIcon />
+                      ),
+                  },
+                  {
                       name: "User Management",
                       url: "usermanagement",
                       icon: (
@@ -171,6 +178,13 @@ export default function Navbar({ auth, role, user }) {
                 {
                     name: "Cedula Certificates",
                     url: "cedulacertificates",
+                    icon: (
+                            <ArticleIcon />
+                    ),
+                },
+                {
+                    name: "Incident Complaints",
+                    url: "incidentcomplaints",
                     icon: (
                             <ArticleIcon />
                     ),
@@ -197,7 +211,14 @@ export default function Navbar({ auth, role, user }) {
                     icon: (
                             <ArticleIcon />
                     ),
-                },
+                    },
+                    {
+                        name: "Incident Complaints",
+                        url: "incidentcomplaints",
+                        icon: (
+                                <ArticleIcon />
+                        ),
+                    },
               ];
 
     const handleDrawerClose = () => {

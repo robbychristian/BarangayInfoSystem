@@ -36,6 +36,10 @@ const CedulaCertificates = ({user}) => {
         }
     }, [refresher]);
 
+    const viewCedula = (id) => {
+        location.href = `/viewcedula?id=${id}`
+    }
+
     return (
         <>
             <div className="w-full flex justify-end">
@@ -98,7 +102,7 @@ const CedulaCertificates = ({user}) => {
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    <Button>View</Button>
+                                    <Button onClick={() => viewCedula(row.id)}>View</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
