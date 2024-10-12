@@ -9,7 +9,7 @@ const CustomDateField = ({ data, onChange, label }) => {
             <DateField
             fullWidth
                 defaultValue={moment()}
-                value={data.birthday == undefined ? moment() : data.birthday}
+                value={data == undefined ? moment() : data.birthday}
                 onChange={onChange}
                 label={label}
             />

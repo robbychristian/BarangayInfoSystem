@@ -67,7 +67,7 @@ const AddIncidentComplaint = ({user}) => {
                         </Typography>
                         <div className="my-2">
                             <CustomDateField 
-                                data={data}
+                                data={data.date_time_incident}
                                 label={'Date and Time of Incident'}
                                 onChange={(e) => setData({ ...data, date_time_incident: e })}
                             />
@@ -184,7 +184,7 @@ const AddIncidentComplaint = ({user}) => {
                         </div>
                         <div className="my-2">
                             <CustomDateField 
-                                data={data}
+                                data={data.date_time_incident}
                                 label={'Incident Date and Time'}
                                 onChange={(e) => setData({ ...data, incident_time: e })}
                             />

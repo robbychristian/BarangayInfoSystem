@@ -201,7 +201,7 @@ const RegisterPage = () => {
                                 </div>
                                 <div className="my-2">
                                     <CustomDateField
-                                        data={data}
+                                        data={data.birthday}
                                         label={"Birthday"}
                                         onChange={(e) =>
                                             setData({ ...data, birthday: e })
