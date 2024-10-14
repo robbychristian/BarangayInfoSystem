@@ -23,4 +23,9 @@ class IncidentForm extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function incidentInfo()
+    {
+        return $this->hasOne(IncidentComplaint::class, 'incident_id', 'id');
+    }
 }

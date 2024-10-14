@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Crud\DocumentSubmissionController;
 use App\Http\Controllers\Crud\IncidentComplaints;
 use App\Http\Controllers\Crud\UserManagementController;
@@ -24,11 +25,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Auth::routes();
 
+Route::post('mobilelogin', [LoginController::class, 'mobileLogin']);
+
+
 Route::prefix('usermanagement')->group(function() {
     Route::get('getallresidents', [UserManagementController::class, 'getAllResidents']);
     Route::get('getuserdetails', [UserManagementController::class, 'getUserDetails']);
     Route::post('verifyuser', [UserManagementController::class, 'verifyUser']);
     Route::get('checkverification', [LoginController::class, 'checkVerification']);
+    Route::post('registerbarangayofficial', [UserManagementController::class, 'registerBarangayOfficial']);
 });
 
 Route::prefix('documents')->group(function () {
@@ -40,4 +45,6 @@ Route::prefix('documents')->group(function () {
 
     Route::post('addincidentcomplaint', [IncidentComplaints::class, 'addIncidentComplaint']);
     Route::get('getallincidentreport', [IncidentComplaints::class, 'getAllIncidentReport']);
+    Route::get('getresidentincidentreport', [IncidentComplaints::class, 'getResidentIncidentReport']);
+    Route::get('getincidentreport', [IncidentComplaints::class, 'getIncidentReport']);
 });

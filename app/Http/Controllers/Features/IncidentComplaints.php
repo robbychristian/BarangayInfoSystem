@@ -16,4 +16,11 @@ class IncidentComplaints extends Controller
     {
         return view('IncidentComplaint.AddIncidentComplaint');
     }
+
+    public function viewIncidentComplaint(Request $request)
+    {
+        return view("IncidentComplaint.ViewIncidentComplain", [
+            'id' => $request->id,
+        ]);
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -47,6 +48,22 @@ class LoginController extends Controller
             return 'true';
         } else {
             return 'false';
+        }
+    }
+
+    public function mobileLogin(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+            // 'device_name' => 'required' //? For Notification
+        ]);
+
+        $user = User::with('profile')->where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return "error";
+        } else {
+            return response(['user' => $user]);
         }
     }
 }

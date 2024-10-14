@@ -31,6 +31,18 @@ class IncidentComplaints extends Controller
         ]);
     }
 
+    public function getResidentIncidentReport(Request $request)
+    {
+        return IncidentForm::with(['user', 'incidentInfo'])->where('user_id', $request->user_id)->get();
+    }
+
+    public function getIncidentReport(Request $request)
+    {
+        return IncidentForm::with(['user' => function ($query) use ($request) {
+            $query->with('profile');
+        }, 'incidentInfo'])->where('id', $request->id)->first();
+    }
+
     public function getAllIncidentReport(Request $request)
     {
         return IncidentForm::with('user')->get();

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Features\DocumentSubmissionController;
 use App\Http\Controllers\Features\IncidentComplaints;
 use App\Http\Controllers\Features\UserManagementController;
+use App\Models\IncidentComplaint;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +28,7 @@ Route::get('/addcedula', [DocumentSubmissionController::class, 'addcedula']);
 Route::get('/cedulacertificates', [DocumentSubmissionController::class, 'index']);
 Route::get('/viewcedula', [DocumentSubmissionController::class, 'viewCedula']);
 Route::get('/usermanagement', [UserManagementController::class, 'index']);
+
+Route::get('/viewincidentcomplaint', [IncidentComplaints::class, 'viewIncidentComplaint']);
 Route::get('/incidentcomplaints', [IncidentComplaints::class, 'index']);
 Route::get('/addincidentcomplaint', [IncidentComplaints::class, 'addIncidentComplaints']);

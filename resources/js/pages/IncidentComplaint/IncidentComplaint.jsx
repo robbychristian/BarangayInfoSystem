@@ -9,13 +9,23 @@ const IncidentComplaint = ({user}) => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        api.get('documents/getallincidentreport')
-            .then((response) => {
-                setData(response.data)
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
+        if (userObject.user_role == 1) {
+            api.get('documents/getallincidentreport')
+                .then((response) => {
+                    setData(response.data)
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+        } else if (userObject.user_role == 3) {
+            api.get(`documents/getresidentincidentreport?user_id=${userObject.id}`)
+                .then((response) => {
+                    setData(response.data)
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+        }
     }, [])
 
     return (
@@ -59,7 +69,7 @@ const IncidentComplaint = ({user}) => {
                                 {moment(row.incident_date_time).format("LL")}
                             </TableCell>
                             <TableCell>
-                                <Button>View</Button>
+                                <Button onClick={() => location.href = `/viewincidentcomplaint?id=${row.id}`}>View</Button>
                             </TableCell>
                         </TableRow>
                         ))}
