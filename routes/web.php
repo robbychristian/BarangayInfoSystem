@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Features\DocumentSubmissionController;
 use App\Http\Controllers\Features\IncidentComplaints;
+use App\Http\Controllers\Features\IncidentReports;
 use App\Http\Controllers\Features\UserManagementController;
 use App\Models\IncidentComplaint;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,6 @@ Route::get('/usermanagement', [UserManagementController::class, 'index']);
 Route::get('/viewincidentcomplaint', [IncidentComplaints::class, 'viewIncidentComplaint']);
 Route::get('/incidentcomplaints', [IncidentComplaints::class, 'index']);
 Route::get('/addincidentcomplaint', [IncidentComplaints::class, 'addIncidentComplaints']);
+
+Route::get('/incidentreports', [IncidentReports::class, 'index']);
+Route::get('/viewincidentreport', [IncidentReports::class, 'viewIncidentReport']);

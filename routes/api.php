@@ -4,7 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Crud\DocumentSubmissionController;
 use App\Http\Controllers\Crud\IncidentComplaints;
-use App\Http\Controllers\Crud\UserManagementController;
+use App\Http\Controllers\Crud\IncidentReports;
+use App\Http\Controllers\Features\UserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,4 +48,9 @@ Route::prefix('documents')->group(function () {
     Route::get('getallincidentreport', [IncidentComplaints::class, 'getAllIncidentReport']);
     Route::get('getresidentincidentreport', [IncidentComplaints::class, 'getResidentIncidentReport']);
     Route::get('getincidentreport', [IncidentComplaints::class, 'getIncidentReport']);
+
+    Route::post('addincidentreport', [IncidentReports::class, 'addIncidentReport']);
+    Route::get('getresidentincidentreport', [IncidentReports::class, 'getResidentIncidentReport']);
+    Route::get('getallincidentreport', [IncidentReports::class, 'getAllIncidentReport']);
+    Route::get('getincidentreport', [IncidentReports::class, 'getIncidentReport']);
 });
