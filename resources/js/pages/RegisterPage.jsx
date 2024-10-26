@@ -276,7 +276,7 @@ const RegisterPage = () => {
                                         <label htmlFor="">No</label>
                                     </div>
                                 </div>
-                                {data.is_student == 1 && (
+                                {/* {data.is_student == 1 && (
                                     <div className="my-2">
                                         <TextField
                                             fullWidth
@@ -290,7 +290,7 @@ const RegisterPage = () => {
                                             label="School Name"
                                         />
                                     </div>
-                                )}
+                                )} */}
                             </>
                         ) : (
                             <>

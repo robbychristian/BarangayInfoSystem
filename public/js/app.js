@@ -45674,9 +45674,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
+var DEV_URL = "http://127.0.0.1:8000/api/";
+// export const DEV_URL = "http://192.168.156.81:8000/api/";
 
-// export const DEV_URL = "http://127.0.0.1:8000/api/";
-var DEV_URL = "http://192.168.156.81:8000/api/";
 var api = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: DEV_URL
 });
@@ -48065,18 +48065,6 @@ var RegisterPage = function RegisterPage() {
                   children: "No"
                 })]
               })]
-            }), data.is_student == 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-              className: "my-2",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
-                fullWidth: true,
-                value: data.school_name,
-                onChange: function onChange(e) {
-                  return setData(_objectSpread(_objectSpread({}, data), {}, {
-                    school_name: e.target.value
-                  }));
-                },
-                label: "School Name"
-              })
             })]
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {

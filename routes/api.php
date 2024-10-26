@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Crud\DocumentSubmissionController;
 use App\Http\Controllers\Crud\IncidentComplaints;
 use App\Http\Controllers\Crud\IncidentReports;
-use App\Http\Controllers\Features\UserManagementController;
+use App\Http\Controllers\Crud\UserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
