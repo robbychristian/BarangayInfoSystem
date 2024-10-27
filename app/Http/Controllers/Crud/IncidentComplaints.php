@@ -20,6 +20,7 @@ class IncidentComplaints extends Controller
             'respondent_address' => $request->respondent_address,
             'respondent_contact_no' => $request->respondent_contact_no,
             'respondent_age' => $request->respondent_age,
+            'status' => "Pending",
         ]);
 
         IncidentComplaint::create([
@@ -31,19 +32,19 @@ class IncidentComplaints extends Controller
         ]);
     }
 
-    public function getResidentIncidentReport(Request $request)
+    public function getResidentIncidentComplaints(Request $request)
     {
         return IncidentForm::with(['user', 'incidentInfo'])->where('user_id', $request->user_id)->get();
     }
 
-    public function getIncidentReport(Request $request)
+    public function getIncidentComplaints(Request $request)
     {
         return IncidentForm::with(['user' => function ($query) use ($request) {
             $query->with('profile');
         }, 'incidentInfo'])->where('id', $request->id)->first();
     }
 
-    public function getAllIncidentReport(Request $request)
+    public function getAllIncidentComplaints(Request $request)
     {
         return IncidentForm::with('user')->get();
     }

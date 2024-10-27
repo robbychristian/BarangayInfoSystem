@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Features\DocumentSubmissionController;
 use App\Http\Controllers\Features\IncidentComplaints;
 use App\Http\Controllers\Features\IncidentReports;
@@ -24,6 +26,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/editpassword', [ProfileController::class, 'editPassword'])->middleware('auth');
+Route::get('/editprofile', [ProfileController::class, 'editProfile'])->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/addcedula', [DocumentSubmissionController::class, 'addcedula']);
 Route::get('/cedulacertificates', [DocumentSubmissionController::class, 'index']);

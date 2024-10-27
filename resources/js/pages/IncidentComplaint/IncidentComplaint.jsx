@@ -10,7 +10,7 @@ const IncidentComplaint = ({user}) => {
 
     useEffect(() => {
         if (userObject.user_role == 1) {
-            api.get('documents/getallincidentreport')
+            api.get('documents/getallincidentcomplaints')
                 .then((response) => {
                     setData(response.data)
                 })
@@ -18,7 +18,7 @@ const IncidentComplaint = ({user}) => {
                     console.log(err.response)
                 })
         } else if (userObject.user_role == 3) {
-            api.get(`documents/getresidentincidentreport?user_id=${userObject.id}`)
+            api.get(`documents/getresidentincidentcomplaints?user_id=${userObject.id}`)
                 .then((response) => {
                     setData(response.data)
                 })

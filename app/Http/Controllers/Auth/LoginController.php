@@ -56,13 +56,16 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
-            // 'device_name' => 'required' //? For Notification
+            'device_name' => 'required' //? For Notification
         ]);
 
         $user = User::with('profile')->where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return "error";
         } else {
+            User::where('email', $request->email)->update([
+                'device_name' => $request->device_name
+            ]);
             return response(['user' => $user]);
         }
     }

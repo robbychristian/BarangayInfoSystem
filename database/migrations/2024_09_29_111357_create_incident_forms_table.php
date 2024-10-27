@@ -22,6 +22,7 @@ class CreateIncidentFormsTable extends Migration
             $table->string("respondent_address");
             $table->string("respondent_contact_no");
             $table->string("respondent_age");
+            $table->string("status");
             $table->timestamps();
         });
     }

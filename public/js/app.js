@@ -45438,6 +45438,8 @@ __webpack_require__(/*! ./components/Example */ "./resources/js/components/Examp
 __webpack_require__(/*! ./navigation/Navbar */ "./resources/js/navigation/Navbar.js");
 __webpack_require__(/*! ./pages/RegisterPage */ "./resources/js/pages/RegisterPage.jsx");
 __webpack_require__(/*! ./pages/LoginPage */ "./resources/js/pages/LoginPage.jsx");
+__webpack_require__(/*! ./pages/Auth/EditProfile */ "./resources/js/pages/Auth/EditProfile.jsx");
+__webpack_require__(/*! ./pages/Auth/ChangePassword */ "./resources/js/pages/Auth/ChangePassword.jsx");
 __webpack_require__(/*! ./pages/UserManagement/UserManagement */ "./resources/js/pages/UserManagement/UserManagement.jsx");
 __webpack_require__(/*! ./pages/DocumentSubmissions/CedulaCertificates */ "./resources/js/pages/DocumentSubmissions/CedulaCertificates.jsx");
 __webpack_require__(/*! ./pages/DocumentSubmissions/AddCedulaCertificate */ "./resources/js/pages/DocumentSubmissions/AddCedulaCertificate.jsx");
@@ -45559,15 +45561,18 @@ __webpack_require__.r(__webpack_exports__);
 
 var CustomDateField = function CustomDateField(_ref) {
   var data = _ref.data,
-    onChange = _ref.onChange,
+    _onChange = _ref.onChange,
     label = _ref.label;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_x_date_pickers__WEBPACK_IMPORTED_MODULE_3__.LocalizationProvider, {
     dateAdapter: _mui_x_date_pickers_AdapterMoment__WEBPACK_IMPORTED_MODULE_4__.AdapterMoment,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_x_date_pickers__WEBPACK_IMPORTED_MODULE_5__.DateField, {
       fullWidth: true,
-      defaultValue: moment__WEBPACK_IMPORTED_MODULE_0___default()(),
-      value: data == undefined ? moment__WEBPACK_IMPORTED_MODULE_0___default()() : data.birthday,
-      onChange: onChange,
+      value: data ? moment__WEBPACK_IMPORTED_MODULE_0___default()(data) : null // Ensures compatibility with `moment`
+      ,
+      onChange: function onChange(newValue) {
+        return _onChange(newValue ? newValue.toISOString() : null);
+      } // Converts to ISO string if needed
+      ,
       label: label
     })
   });
@@ -45674,9 +45679,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var DEV_URL = "http://127.0.0.1:8000/api/";
-// export const DEV_URL = "http://192.168.156.81:8000/api/";
 
+// export const DEV_URL = "http://127.0.0.1:8000/api/";
+var DEV_URL = "http://192.168.254.190:8000/api/";
 var api = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: DEV_URL
 });
@@ -46068,7 +46073,7 @@ function Navbar(_ref5) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_21__["default"], {
                   onClick: function onClick() {
                     setAnchorEl(null);
-                    location.href = "/editprofile";
+                    location.href = "/editprofile?user_id=".concat(userObject.id);
                   },
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material_ListItemIcon__WEBPACK_IMPORTED_MODULE_22__["default"], {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_24__["default"], {})
@@ -46076,7 +46081,7 @@ function Navbar(_ref5) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_21__["default"], {
                   onClick: function onClick() {
                     setAnchorEl(null);
-                    location.href = "/editpassword";
+                    location.href = "/editpassword?user_id=".concat(userObject.id);
                   },
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material_ListItemIcon__WEBPACK_IMPORTED_MODULE_22__["default"], {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_icons_material__WEBPACK_IMPORTED_MODULE_25__["default"], {})
@@ -46224,6 +46229,393 @@ if (document.getElementById("navbar")) {
     role: props.role,
     user: props.user
   }), document.getElementById("navbar"));
+}
+
+/***/ }),
+
+/***/ "./resources/js/pages/Auth/ChangePassword.jsx":
+/*!****************************************************!*\
+  !*** ./resources/js/pages/Auth/ChangePassword.jsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _config_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../config/api */ "./resources/js/config/api.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+
+
+
+
+var ChangePassword = function ChangePassword(_ref) {
+  var user = _ref.user;
+  var userObject = JSON.parse(user);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      id: userObject.id
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    data = _useState2[0],
+    setData = _useState2[1];
+  var onSubmit = function onSubmit() {
+    // console.log(userObject)
+    _config_api__WEBPACK_IMPORTED_MODULE_2__.api.post('changepassword', data).then(function (response) {
+      if (response.data) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success("Password successfully changed!");
+      } else {
+        react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error("Current password incorrect!");
+      }
+      location.reload();
+    })["catch"](function (err) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error("There is a problem handling your request!");
+      console.log(err.response);
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      sx: {
+        width: "100%"
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          gutterBottom: true,
+          variant: "h5",
+          fontWeight: 700,
+          component: "div",
+          children: "Change Password"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            fullWidth: true,
+            value: data.current_password,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                current_password: e.target.value
+              }));
+            },
+            label: "Current Password",
+            type: "password"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            fullWidth: true,
+            value: data.new_password,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                new_password: e.target.value
+              }));
+            },
+            label: "New Password",
+            type: "password"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            fullWidth: true,
+            value: data.confirm_password,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                confirm_password: e.target.value
+              }));
+            },
+            label: "Confirm Password",
+            type: "password"
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "w-full",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            fullWidth: true,
+            variant: "contained",
+            onClick: onSubmit,
+            children: "SUBMIT"
+          })
+        })
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChangePassword);
+if (document.getElementById("ChangePassword")) {
+  var element = document.getElementById("ChangePassword");
+  var props = Object.assign({}, element.dataset);
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ChangePassword, _objectSpread({}, props)), document.getElementById("ChangePassword"));
+}
+
+/***/ }),
+
+/***/ "./resources/js/pages/Auth/EditProfile.jsx":
+/*!*************************************************!*\
+  !*** ./resources/js/pages/Auth/EditProfile.jsx ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/InputLabel/InputLabel.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Select/Select.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/MenuItem/MenuItem.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActions/CardActions.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _components_inputs_CustomDateField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/inputs/CustomDateField */ "./resources/js/components/inputs/CustomDateField.js");
+/* harmony import */ var _config_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../config/api */ "./resources/js/config/api.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+
+
+
+
+
+var EditProfile = function EditProfile(_ref) {
+  var _data$profile, _data$profile2, _data$profile3;
+  var user = _ref.user;
+  var userObject = JSON.parse(user);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      email: "",
+      birth_place: "",
+      profile: {
+        contact_number: "",
+        landline: ""
+      }
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    data = _useState2[0],
+    setData = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    _config_api__WEBPACK_IMPORTED_MODULE_3__.api.post("getprofile", {
+      id: userObject.id
+    }).then(function (response) {
+      setData(response.data);
+    })["catch"](function (err) {
+      console.log(err.response);
+    });
+  }, []);
+  var onSubmit = function onSubmit() {
+    _config_api__WEBPACK_IMPORTED_MODULE_3__.api.post('updateprofile', data).then(function (response) {
+      console.log(response.data);
+      react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.success("Profile has been updated!");
+      location.reload();
+    })["catch"](function (err) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error("There is a problem handling your request");
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      sx: {
+        width: "100%"
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          gutterBottom: true,
+          variant: "h5",
+          fontWeight: 700,
+          component: "div",
+          children: "Edit Personal Details"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            fullWidth: true,
+            value: data.first_name,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                first_name: e.target.value
+              }));
+            },
+            label: "First Name"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            fullWidth: true,
+            value: data.middle_name,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                middle_name: e.target.value
+              }));
+            },
+            label: "Middle Name"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            fullWidth: true,
+            value: data.last_name,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                last_name: e.target.value
+              }));
+            },
+            label: "Last Name"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            fullWidth: true,
+            value: data.email,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                email: e.target.value
+              }));
+            },
+            label: "Email"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_inputs_CustomDateField__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            data: data.birthday,
+            label: "Birthday",
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                birthday: e
+              }));
+            }
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            fullWidth: true,
+            value: data.birth_place,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                birth_place: e.target.value
+              }));
+            },
+            label: "Birth Place"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            fullWidth: true,
+            value: (_data$profile = data.profile) === null || _data$profile === void 0 ? void 0 : _data$profile.contact_number,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                profile: _objectSpread(_objectSpread({}, data.profile), {}, {
+                  contact_number: e.target.value
+                })
+              }));
+            },
+            label: "Contact Number"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            fullWidth: true,
+            value: (_data$profile2 = data.profile) === null || _data$profile2 === void 0 ? void 0 : _data$profile2.landline,
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                profile: _objectSpread(_objectSpread({}, data.profile), {}, {
+                  landline: e.target.value
+                })
+              }));
+            },
+            label: "Landline"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "my-2",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            fullWidth: true,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              id: "religion_select",
+              children: "Religion"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              labelId: "religion_select",
+              id: "religion-simple-select",
+              value: ((_data$profile3 = data.profile) === null || _data$profile3 === void 0 ? void 0 : _data$profile3.user_religion) || "" // Fallback to empty string
+              ,
+              label: "Religion",
+              onChange: function onChange(e) {
+                return setData(_objectSpread(_objectSpread({}, data), {}, {
+                  profile: _objectSpread(_objectSpread({}, data.profile), {}, {
+                    user_religion: e.target.value
+                  })
+                }));
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                value: "Roman Catholic",
+                children: "Roman Catholic"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                value: "Christian",
+                children: "Christian"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                value: "Muslim",
+                children: "Muslim"
+              })]
+            })]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "w-full",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            fullWidth: true,
+            variant: "contained",
+            onClick: onSubmit,
+            children: "SUBMIT"
+          })
+        })
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditProfile);
+if (document.getElementById("EditProfile")) {
+  var element = document.getElementById("EditProfile");
+  var props = Object.assign({}, element.dataset);
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(EditProfile, _objectSpread({}, props)), document.getElementById("EditProfile"));
 }
 
 /***/ }),
@@ -46668,7 +47060,25 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var ViewCedula = function ViewCedula(_ref) {
   var _data$user, _data$user2, _data$user3, _data$user4, _data$user5, _data$user6, _data$user7, _data$user8;
   var id = _ref.id;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      user: {
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        profile: {
+          user_street: "",
+          user_barangay: "",
+          user_gender: ""
+        },
+        birthday: "",
+        birth_place: ""
+      },
+      height: "",
+      weight: "",
+      occupation: "",
+      salary: "",
+      tin_id: ""
+    }),
     _useState2 = _slicedToArray(_useState, 2),
     data = _useState2[0],
     setData = _useState2[1];
@@ -46708,42 +47118,78 @@ var ViewCedula = function ViewCedula(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Full Name",
-              value: "".concat((_data$user = data.user) === null || _data$user === void 0 ? void 0 : _data$user.first_name, " ").concat((_data$user2 = data.user) === null || _data$user2 === void 0 ? void 0 : _data$user2.middle_name, " ").concat((_data$user3 = data.user) === null || _data$user3 === void 0 ? void 0 : _data$user3.last_name)
+              value: "".concat((_data$user = data.user) === null || _data$user === void 0 ? void 0 : _data$user.first_name, " ").concat((_data$user2 = data.user) === null || _data$user2 === void 0 ? void 0 : _data$user2.middle_name, " ").concat((_data$user3 = data.user) === null || _data$user3 === void 0 ? void 0 : _data$user3.last_name),
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Address",
-              value: "".concat((_data$user4 = data.user) === null || _data$user4 === void 0 || (_data$user4 = _data$user4.profile) === null || _data$user4 === void 0 ? void 0 : _data$user4.user_street, ", ").concat((_data$user5 = data.user) === null || _data$user5 === void 0 || (_data$user5 = _data$user5.profile) === null || _data$user5 === void 0 ? void 0 : _data$user5.user_barangay)
+              value: "".concat((_data$user4 = data.user) === null || _data$user4 === void 0 || (_data$user4 = _data$user4.profile) === null || _data$user4 === void 0 ? void 0 : _data$user4.user_street, ", ").concat((_data$user5 = data.user) === null || _data$user5 === void 0 || (_data$user5 = _data$user5.profile) === null || _data$user5 === void 0 ? void 0 : _data$user5.user_barangay),
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Citizenship",
-              value: "Filipino"
+              value: "Filipino",
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Sex",
-              value: "".concat((_data$user6 = data.user) === null || _data$user6 === void 0 || (_data$user6 = _data$user6.profile) === null || _data$user6 === void 0 ? void 0 : _data$user6.user_gender)
+              value: "".concat((_data$user6 = data.user) === null || _data$user6 === void 0 || (_data$user6 = _data$user6.profile) === null || _data$user6 === void 0 ? void 0 : _data$user6.user_gender),
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Birthday",
-              value: "".concat((_data$user7 = data.user) === null || _data$user7 === void 0 ? void 0 : _data$user7.birthday)
+              value: "".concat((_data$user7 = data.user) === null || _data$user7 === void 0 ? void 0 : _data$user7.birthday),
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Birth Place",
-              value: "".concat((_data$user8 = data.user) === null || _data$user8 === void 0 ? void 0 : _data$user8.birth_place)
+              value: "".concat((_data$user8 = data.user) === null || _data$user8 === void 0 ? void 0 : _data$user8.birth_place),
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "grid grid-cols-2 gap-4 my-2",
@@ -46752,14 +47198,26 @@ var ViewCedula = function ViewCedula(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
                 fullWidth: true,
                 label: "Height (cm)",
-                value: data.height
+                value: data.height,
+                InputProps: {
+                  readOnly: true
+                },
+                InputLabelProps: {
+                  shrink: true
+                }
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
               className: "col-span-1",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
                 fullWidth: true,
                 label: "Weight (kg)",
-                value: data.weight
+                value: data.weight,
+                InputProps: {
+                  readOnly: true
+                },
+                InputLabelProps: {
+                  shrink: true
+                }
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -46767,21 +47225,39 @@ var ViewCedula = function ViewCedula(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Occupation",
-              value: data.occupation
+              value: data.occupation,
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "Salary/Income",
-              value: data.salary
+              value: data.salary,
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
               fullWidth: true,
               label: "TIN #",
-              value: data.tin_id
+              value: data.tin_id,
+              InputProps: {
+                readOnly: true
+              },
+              InputLabelProps: {
+                shrink: true
+              }
             })
           })]
         })
@@ -47133,13 +47609,13 @@ var IncidentComplaint = function IncidentComplaint(_ref) {
     setData = _useState2[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (userObject.user_role == 1) {
-      _config_api__WEBPACK_IMPORTED_MODULE_2__.api.get('documents/getallincidentreport').then(function (response) {
+      _config_api__WEBPACK_IMPORTED_MODULE_2__.api.get('documents/getallincidentcomplaints').then(function (response) {
         setData(response.data);
       })["catch"](function (err) {
         console.log(err.response);
       });
     } else if (userObject.user_role == 3) {
-      _config_api__WEBPACK_IMPORTED_MODULE_2__.api.get("documents/getresidentincidentreport?user_id=".concat(userObject.id)).then(function (response) {
+      _config_api__WEBPACK_IMPORTED_MODULE_2__.api.get("documents/getresidentincidentcomplaints?user_id=".concat(userObject.id)).then(function (response) {
         setData(response.data);
       })["catch"](function (err) {
         console.log(err.response);
@@ -47263,14 +47739,38 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 var ViewIncidentComplaint = function ViewIncidentComplaint(_ref) {
-  var _data$user, _data$user2, _data$user3, _data$user4, _data$user5, _data$user6, _data$incident_info, _data$incident_info2, _data$incident_info3, _data$incident_info4;
+  var _data$user, _data$user2, _data$user3, _data$user4, _data$user5, _data$user6, _data$user7, _data$incident_info, _data$incident_info2, _data$incident_info3, _data$incident_info4;
   var id = _ref.id;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+  // const [data, setData] = useState({})
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      date_time_incident: null,
+      user: {
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        profile: {
+          user_street: "",
+          user_barangay: "",
+          contact_number: ""
+        },
+        birthday: ""
+      },
+      respondent_name: "",
+      respondent_address: "",
+      respondent_contact_no: "",
+      respondent_age: "",
+      incident_info: {
+        incident_reason: "",
+        incident_place: "",
+        date_time_incident: null,
+        incident_report: ""
+      }
+    }),
     _useState2 = _slicedToArray(_useState, 2),
     data = _useState2[0],
     setData = _useState2[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    _config_api__WEBPACK_IMPORTED_MODULE_3__.api.get("documents/getincidentreport?id=".concat(id)).then(function (response) {
+    _config_api__WEBPACK_IMPORTED_MODULE_3__.api.get("documents/getincidentcomplaints?id=".concat(id)).then(function (response) {
       setData(response.data);
     })["catch"](function (err) {
       console.log(err.response);
@@ -47332,7 +47832,7 @@ var ViewIncidentComplaint = function ViewIncidentComplaint(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
                 fullWidth: true,
                 label: "Age",
-                value: "".concat(moment__WEBPACK_IMPORTED_MODULE_4___default()().diff(data.birthday, "years"))
+                value: "".concat(moment__WEBPACK_IMPORTED_MODULE_4___default()().diff(moment__WEBPACK_IMPORTED_MODULE_4___default()((_data$user7 = data.user) === null || _data$user7 === void 0 ? void 0 : _data$user7.birthday).format('YYYY-MM-DD'), "years"))
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -47383,7 +47883,7 @@ var ViewIncidentComplaint = function ViewIncidentComplaint(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "my-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_inputs_CustomDateField__WEBPACK_IMPORTED_MODULE_2__["default"], {
-              data: (_data$incident_info3 = data.incident_info) === null || _data$incident_info3 === void 0 ? void 0 : _data$incident_info3.date_time_incident,
+              data: (_data$incident_info3 = data.incident_info) === null || _data$incident_info3 === void 0 ? void 0 : _data$incident_info3.incident_time,
               label: "Incident Date and Time"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {

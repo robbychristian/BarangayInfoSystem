@@ -6,10 +6,35 @@ import { api } from "../../config/api";
 import moment from "moment";
 
 const ViewIncidentComplaint = ({id}) => {
-    const [data, setData] = useState({})
+    // const [data, setData] = useState({})
+    const [data, setData] = useState({
+        date_time_incident: null,
+        user: {
+            first_name: "",
+            middle_name: "",
+            last_name: "",
+            profile: {
+                user_street: "",
+                user_barangay: "",
+                contact_number: ""
+            },
+            birthday: ""
+        },
+        respondent_name: "",
+        respondent_address: "",
+        respondent_contact_no: "",
+        respondent_age: "",
+        incident_info: {
+            incident_reason: "",
+            incident_place: "",
+            date_time_incident: null,
+            incident_report: ""
+        }
+    });
+    
 
     useEffect(() => {
-        api.get(`documents/getincidentreport?id=${id}`)
+        api.get(`documents/getincidentcomplaints?id=${id}`)
             .then(response => {
                 setData(response.data)
             })
@@ -71,7 +96,7 @@ const ViewIncidentComplaint = ({id}) => {
                                     fullWidth
                                     label="Age"
                                     value={`${moment().diff(
-                                        data.birthday,
+                                        moment(data.user?.birthday).format('YYYY-MM-DD'),
                                         "years"
                                     )}`}
                                 />
@@ -123,7 +148,7 @@ const ViewIncidentComplaint = ({id}) => {
                         </div>
                         <div className="my-2">
                             <CustomDateField
-                                data={data.incident_info?.date_time_incident}
+                                data={data.incident_info?.incident_time}
                                 label={"Incident Date and Time"}
                             />
                         </div>

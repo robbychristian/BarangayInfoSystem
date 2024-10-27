@@ -17,6 +17,8 @@ require('./components/Example');
 require('./navigation/Navbar')
 require('./pages/RegisterPage')
 require('./pages/LoginPage')
+require('./pages/Auth/EditProfile')
+require('./pages/Auth/ChangePassword')
 require('./pages/UserManagement/UserManagement')
 require('./pages/DocumentSubmissions/CedulaCertificates')
 require('./pages/DocumentSubmissions/AddCedulaCertificate')

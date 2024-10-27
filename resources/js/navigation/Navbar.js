@@ -370,7 +370,7 @@ export default function Navbar({ auth, role, user }) {
                                         <MenuItem
                                             onClick={() => {
                                                 setAnchorEl(null);
-                                                location.href = "/editprofile";
+                                                location.href = `/editprofile?user_id=${userObject.id}`;
                                             }}
                                         >
                                             <ListItemIcon>
@@ -381,7 +381,7 @@ export default function Navbar({ auth, role, user }) {
                                         <MenuItem
                                             onClick={() => {
                                                 setAnchorEl(null);
-                                                location.href = "/editpassword";
+                                                location.href = `/editpassword?user_id=${userObject.id}`;
                                             }}
                                         >
                                             <ListItemIcon>

@@ -17,6 +17,7 @@ class IncidentForm extends Model
         'respondent_address',
         'respondent_contact_no',
         'respondent_age',
+        'status',
     ];
 
     public function user()

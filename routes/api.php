@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Crud\DocumentSubmissionController;
 use App\Http\Controllers\Crud\IncidentComplaints;
@@ -27,6 +28,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Auth::routes();
 
 Route::post('mobilelogin', [LoginController::class, 'mobileLogin']);
+Route::post('getprofile', [ProfileController::class, 'getProfile']);
+Route::post('updateprofile', [ProfileController::class, 'updateProfile']);
+Route::post('changepassword', [ProfileController::class, 'changePassword']);
 
 
 Route::prefix('usermanagement')->group(function() {
@@ -45,9 +49,9 @@ Route::prefix('documents')->group(function () {
     Route::post('approvecedula', [DocumentSubmissionController::class, 'approveData']);
 
     Route::post('addincidentcomplaint', [IncidentComplaints::class, 'addIncidentComplaint']);
-    Route::get('getallincidentreport', [IncidentComplaints::class, 'getAllIncidentReport']);
-    Route::get('getresidentincidentreport', [IncidentComplaints::class, 'getResidentIncidentReport']);
-    Route::get('getincidentreport', [IncidentComplaints::class, 'getIncidentReport']);
+    Route::get('getallincidentcomplaints', [IncidentComplaints::class, 'getAllIncidentComplaints']);
+    Route::get('getresidentincidentcomplaints', [IncidentComplaints::class, 'getResidentIncidentComplaints']);
+    Route::get('getincidentcomplaints', [IncidentComplaints::class, 'getIncidentComplaints']);
 
     Route::post('addincidentreport', [IncidentReports::class, 'addIncidentReport']);
     Route::get('getresidentincidentreport', [IncidentReports::class, 'getResidentIncidentReport']);

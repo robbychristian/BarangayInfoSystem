@@ -30,6 +30,7 @@ class User extends Authenticatable
         'password',
         'user_role',
         'is_verified',
+        'device_name',
     ];
 
     /**

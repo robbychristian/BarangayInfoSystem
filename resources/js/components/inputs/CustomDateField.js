@@ -7,10 +7,9 @@ const CustomDateField = ({ data, onChange, label }) => {
     return (
         <LocalizationProvider dateAdapter={AdapterMoment}>
             <DateField
-            fullWidth
-                defaultValue={moment()}
-                value={data == undefined ? moment() : data.birthday}
-                onChange={onChange}
+                fullWidth
+                value={data ? moment(data) : null} // Ensures compatibility with `moment`
+                onChange={(newValue) => onChange(newValue ? newValue.toISOString() : null)} // Converts to ISO string if needed
                 label={label}
             />
         </LocalizationProvider>
