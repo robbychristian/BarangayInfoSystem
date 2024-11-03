@@ -46930,6 +46930,12 @@ var CedulaCertificates = function CedulaCertificates(_ref) {
       })["catch"](function (err) {
         console.log(err.response);
       });
+    } else {
+      _config_api__WEBPACK_IMPORTED_MODULE_2__.api.get("documents/getallcedulas").then(function (response) {
+        setData(response.data);
+      })["catch"](function (err) {
+        console.log(err.response);
+      });
     }
   }, [refresher]);
   var viewCedula = function viewCedula(id) {
@@ -47620,6 +47626,12 @@ var IncidentComplaint = function IncidentComplaint(_ref) {
       })["catch"](function (err) {
         console.log(err.response);
       });
+    } else {
+      _config_api__WEBPACK_IMPORTED_MODULE_2__.api.get('documents/getallincidentcomplaints').then(function (response) {
+        setData(response.data);
+      })["catch"](function (err) {
+        console.log(err.response);
+      });
     }
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
@@ -48106,18 +48118,18 @@ var ViewIncidentReport = function ViewIncidentReport(_ref2) {
     });
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    className: "h-60 lg:h-36 w-full",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_7__.MapContainer, {
+    className: "h-60 lg:h-[80vh] w-full",
+    children: data && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_7__.MapContainer, {
       style: {
-        height: "10%",
+        height: "100%",
         width: "100%"
       },
-      center: [15.3147512, 119.9984387],
+      center: [Number(data.lat), Number(data.lon)],
       zoom: 14.5,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_8__.TileLayer, {
         attribution: "\xA9 <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
         url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      }), data && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_6__.Circle, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_6__.Circle, {
         center: [Number(data.lat), Number(data.lon)],
         pathOptions: {
           color: "orange"

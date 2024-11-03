@@ -25,6 +25,14 @@ const IncidentComplaint = ({user}) => {
                 .catch(err => {
                     console.log(err.response)
                 })
+        } else {
+            api.get('documents/getallincidentcomplaints')
+                .then((response) => {
+                    setData(response.data)
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
         }
     }, [])
 

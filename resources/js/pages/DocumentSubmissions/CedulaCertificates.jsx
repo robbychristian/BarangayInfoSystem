@@ -33,6 +33,14 @@ const CedulaCertificates = ({user}) => {
                 .catch(err => {
                     console.log(err.response)
                 })
+        } else {
+            api.get("documents/getallcedulas")
+                .then((response) => {
+                    setData(response.data);
+                })
+                .catch((err) => {
+                    console.log(err.response);
+                });
         }
     }, [refresher]);
 

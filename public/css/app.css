@@ -1797,6 +1797,10 @@ select {
     height: 9rem;
   }
 
+  .lg\:h-\[80vh\] {
+    height: 80vh;
+  }
+
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
