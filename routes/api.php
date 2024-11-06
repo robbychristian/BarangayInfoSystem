@@ -7,6 +7,7 @@ use App\Http\Controllers\Crud\DocumentSubmissionController;
 use App\Http\Controllers\Crud\IncidentComplaints;
 use App\Http\Controllers\Crud\IncidentReports;
 use App\Http\Controllers\Crud\UserManagementController;
+use App\Models\IncidentComplaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,4 +60,5 @@ Route::prefix('documents')->group(function () {
     Route::get('getincidentreport', [IncidentReports::class, 'getIncidentReport']);
     Route::post('updateincidentreport', [IncidentReports::class, 'updateIncidentReport']);
     Route::post('updatecertificate', [DocumentSubmissionController::class, 'updateCertificate']);
+    Route::post('updateincidentcomplaint', [IncidentComplaints::class, 'updateIncidentComplaint']);
 });

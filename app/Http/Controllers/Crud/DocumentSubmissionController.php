@@ -51,11 +51,11 @@ class DocumentSubmissionController extends Controller
     public function updateCertificate(Request $request)
     {
         if ($request->data['cedula_status'] == "Pending") {
-            CedulaCertificate::where('id', $request->data)->update([
+            CedulaCertificate::where('id', $request->data['id'])->update([
                 'cedula_status' => 'In Progress',
             ]);
         } else if ($request->data['cedula_status'] == "In Progress") {
-            CedulaCertificate::where('id', $request->data)->update([
+            CedulaCertificate::where('id', $request->data['id'])->update([
                 'cedula_status' => 'Completed',
             ]);
         }

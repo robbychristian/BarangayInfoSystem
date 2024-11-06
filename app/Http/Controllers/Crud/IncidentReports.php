@@ -37,11 +37,11 @@ class IncidentReports extends Controller
     public function updateIncidentReport(Request $request)
     {
         if ($request->data['status'] == "Pending") {
-            IncidentReport::where('id', $request->data)->update([
+            IncidentReport::where('id', $request->data['id'])->update([
                 'status' => 'In Progress',
             ]);
         } else if ($request->data['status'] == "In Progress") {
-            IncidentReport::where('id', $request->data)->update([
+            IncidentReport::where('id', $request->data['id'])->update([
                 'status' => 'Resolved',
             ]);
         }

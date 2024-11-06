@@ -13,6 +13,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import { Button, Typography } from "@mui/material";
+import { toast } from "react-toastify";
 
 function LocationMarker({ coords, setCoords, center }) {
     // const [position, setPosition] = useState(null);
@@ -54,6 +55,10 @@ const ViewIncidentReport = ({ id }) => {
         })
             .then((response) => {
                 setRefresher(refresher + 1)
+                toast("Status has been updated!", {
+                    autoClose: 3000,
+                    type: 'success'
+                })
             }).catch(err => {
                 console.log((err.response))
             })

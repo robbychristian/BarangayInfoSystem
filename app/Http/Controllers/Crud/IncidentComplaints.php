@@ -46,6 +46,19 @@ class IncidentComplaints extends Controller
 
     public function getAllIncidentComplaints(Request $request)
     {
-        return IncidentForm::with('user')->get();
+        return IncidentForm::with('user')->with('incidentInfo')->get();
+    }
+
+    public function updateIncidentComplaint(Request $request)
+    {
+        if ($request->data['status'] == "Pending") {
+            IncidentForm::where('id', $request->data['id'])->update([
+                'status' => "In Progress"
+            ]);
+        } else if ($request->data['status'] == "In Progress") {
+            IncidentForm::where('id', $request->data['id'])->update([
+                'status' => "Completed"
+            ]);
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { api } from '../../config/api';
@@ -51,7 +51,7 @@ const IncidentComplaint = ({user}) => {
                         <TableRow>
                             <TableCell>Name of Complainant</TableCell>
                             <TableCell>Respondent Name</TableCell>
-                            {/* <TableCell>Status</TableCell> */}
+                            <TableCell>Status</TableCell>
                             <TableCell>Date of Incident</TableCell>
                             <TableCell>Action</TableCell>
                         </TableRow>
@@ -72,6 +72,11 @@ const IncidentComplaint = ({user}) => {
                             </TableCell>
                             <TableCell component="th" scope="row">
                                 {row.respondent_name}
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                                <Typography variant='caption' color={row.status == "Pending" ? "warning" : row.incident_info?.status == "In Progress" ? "primary" : "success"}>
+                                {row.status}
+                                </Typography>
                             </TableCell>
                             <TableCell component="th" scope="row">
                                 {moment(row.incident_date_time).format("LL")}

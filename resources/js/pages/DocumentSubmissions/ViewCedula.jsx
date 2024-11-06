@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { api } from "../../config/api";
 import { update } from "lodash";
+import { toast } from "react-toastify";
 
 const ViewCedula = ({id}) => {
     const [data, setData] = useState({
@@ -47,6 +48,10 @@ const ViewCedula = ({id}) => {
         api.post(`documents/updatecertificate`, {data})
             .then(response => {
                 setRefresher(refresher + 1)
+                toast("Status has been updated!", {
+                    type: "success",
+                    autoClose: 3000
+                })
             }).catch(err => {
                 console.log(err.response)
             })

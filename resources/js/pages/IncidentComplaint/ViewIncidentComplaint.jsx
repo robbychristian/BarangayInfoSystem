@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import CustomDateField from "../../components/inputs/CustomDateField";
 import { api } from "../../config/api";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const ViewIncidentComplaint = ({id}) => {
     // const [data, setData] = useState({})
@@ -42,6 +43,19 @@ const ViewIncidentComplaint = ({id}) => {
                 console.log(err.response)
             })
     }, [])
+
+    const updateStatus = () => {
+        api.post('documents/updateincidentcomplaint', {data})
+            .then((response) => {
+                toast("Status has been updated!", {
+                    type: 'success',
+                    autoClose: 3000
+                })
+                location.href = '/incidentcomplaints'
+            }).catch(err => {
+                console.log(err.response)
+            })
+    }
     return (
         <div className="w-full my-5">
             <div className="w-full flex justify-center items-center h-full">
@@ -162,20 +176,20 @@ const ViewIncidentComplaint = ({id}) => {
                             />
                         </div>
                     </CardContent>
-                    {/* <CardActions>
+                    <CardActions>
                         <div className="flex w-full justify-center">
                             <Button
                                 fullWidth
                                 variant="contained"
                                 color="primary"
                                 onClick={() => {
-                                    onSubmit();
+                                    updateStatus(data)
                                 }}
                             >
-                                SUBMIT INCIDENT REPORT
+                                Update Status
                             </Button>
                         </div>
-                    </CardActions> */}
+                    </CardActions>
                 </Card>
             </div>
         </div>
