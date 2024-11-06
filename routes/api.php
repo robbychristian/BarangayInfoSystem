@@ -57,4 +57,6 @@ Route::prefix('documents')->group(function () {
     Route::get('getresidentincidentreport', [IncidentReports::class, 'getResidentIncidentReport']);
     Route::get('getallincidentreport', [IncidentReports::class, 'getAllIncidentReport']);
     Route::get('getincidentreport', [IncidentReports::class, 'getIncidentReport']);
+    Route::post('updateincidentreport', [IncidentReports::class, 'updateIncidentReport']);
+    Route::post('updatecertificate', [DocumentSubmissionController::class, 'updateCertificate']);
 });

@@ -91,21 +91,29 @@ const CedulaCertificates = ({user}) => {
                                         >
                                             Pending
                                         </Typography>
-                                    ) : row.cedula_status == "Verified" ? (
+                                    ) : row.cedula_status == "In Progress" ? (
+                                        <Typography
+                                            variant="caption"
+                                            fontWeight={600}
+                                            color="primary"
+                                        >
+                                            In Progress
+                                        </Typography>
+                                    ) : row.cedula_status == "Completed" ? (
                                         <Typography
                                             variant="caption"
                                             fontWeight={600}
                                             color="success"
                                         >
-                                            Verified
+                                            Completed
                                         </Typography>
                                     ) : (
                                         <Typography
                                             variant="caption"
                                             fontWeight={600}
-                                            color="error"
+                                            color="danger"
                                         >
-                                            Expired
+                                            Expiry
                                         </Typography>
                                     )}
                                 </TableCell>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Crud;
 
 use App\Http\Controllers\Controller;
 use App\Models\CedulaCertificate;
+use App\Models\IncidentComplaint;
 use Illuminate\Http\Request;
 
 class DocumentSubmissionController extends Controller
@@ -45,5 +46,18 @@ class DocumentSubmissionController extends Controller
         return CedulaCertificate::where('id', $request->id)->update([
             'cedula_status' => 'Approved'
         ]);
+    }
+
+    public function updateCertificate(Request $request)
+    {
+        if ($request->data['cedula_status'] == "Pending") {
+            CedulaCertificate::where('id', $request->data)->update([
+                'cedula_status' => 'In Progress',
+            ]);
+        } else if ($request->data['cedula_status'] == "In Progress") {
+            CedulaCertificate::where('id', $request->data)->update([
+                'cedula_status' => 'Completed',
+            ]);
+        }
     }
 }

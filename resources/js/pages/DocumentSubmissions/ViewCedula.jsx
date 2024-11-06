@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { api } from "../../config/api";
+import { update } from "lodash";
 
 const ViewCedula = ({id}) => {
     const [data, setData] = useState({
@@ -30,17 +31,26 @@ const ViewCedula = ({id}) => {
         salary: "",
         tin_id: ""
     });
+    const [refresher, setRefresher] = useState(0)
 
     useEffect(() => {
         api.get(`documents/getcedula?id=${id}`)
             .then(response => {
-                console.log(response.data)
                 setData(response.data)
             })
             .catch(err => {
                 console.log(err.response)
             })
-    }, [])
+    }, [refresher])
+
+    const updateStatus = (data) => {
+        api.post(`documents/updatecertificate`, {data})
+            .then(response => {
+                setRefresher(refresher + 1)
+            }).catch(err => {
+                console.log(err.response)
+            })
+    }
 
     return (
         <div className="h-[80vh] w-full">
@@ -165,6 +175,7 @@ const ViewCedula = ({id}) => {
                             />
                         </div>
                     </CardContent>
+            <Button variant="contained" fullWidth onClick={() => updateStatus(data)}>Update Status</Button>
                 </Card>
             </div>
         </div>

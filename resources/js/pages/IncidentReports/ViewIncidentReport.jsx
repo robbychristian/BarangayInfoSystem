@@ -12,6 +12,7 @@ import {
     Popup,
 } from "react-leaflet";
 import L from "leaflet";
+import { Button, Typography } from "@mui/material";
 
 function LocationMarker({ coords, setCoords, center }) {
     // const [position, setPosition] = useState(null);
@@ -35,6 +36,7 @@ function LocationMarker({ coords, setCoords, center }) {
 
 const ViewIncidentReport = ({ id }) => {
     const [data, setData] = useState(null);
+    const [refresher, setRefresher] = useState(0)
 
     useEffect(() => {
         api.get(`documents/getincidentreport?id=${id}`)
@@ -44,32 +46,50 @@ const ViewIncidentReport = ({ id }) => {
             .catch((err) => {
                 console.log(err.response);
             });
-    }, []);
+    }, [refresher]);
+
+    const updateStatus = (data) => {
+        api.post(`documents/updateincidentreport`, {
+            data
+        })
+            .then((response) => {
+                setRefresher(refresher + 1)
+            }).catch(err => {
+                console.log((err.response))
+            })
+    }
 
     return (
         <div className="h-60 lg:h-[80vh] w-full">
             {data && (
-                <MapContainer
-                    style={{ height: "100%", width: "100%" }}
-                    center={[Number(data.lat), Number(data.lon)]}
-                    zoom={14.5}
-                >
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Circle
+                <>
+                <div className="flex flex-row">
+                <Typography variant="h4" sx={{ fontWeight: '700' }}>STATUS: </Typography>
+                <Typography variant="h4" className="ml-3" sx={{ fontWeight: '700' }} color={data.status == "Pending" ? "warning" : data.status == "In Progress" ? "primary" : "success"}>{data.status}</Typography>
+                </div>
+                    <MapContainer
+                        style={{ height: "100%", width: "100%", marginBottom: 10 }}
                         center={[Number(data.lat), Number(data.lon)]}
-                        pathOptions={{ color: "orange" }}
-                        radius={100}
-                    />
-                    {/* {areas.length > 0 &&
+                        zoom={14.5}
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Circle
+                            center={[Number(data.lat), Number(data.lon)]}
+                            pathOptions={{ color: "orange" }}
+                            radius={100}
+                        />
+                        {/* {areas.length > 0 &&
                     areas.map((item, index) => {
                         console.log(item);
                         return (
                             );
                             })}} */}
-                </MapContainer>
+                    </MapContainer>
+                    <Button onClick={() => updateStatus(data)} variant="contained" fullWidth>Update Status</Button>
+                </>
             )}
         </div>
     );

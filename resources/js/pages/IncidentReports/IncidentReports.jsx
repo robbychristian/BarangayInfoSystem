@@ -1,4 +1,4 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { api } from '../../config/api';
@@ -25,7 +25,7 @@ const IncidentReports = ({user}) => {
                         <TableRow>
                             <TableCell>Name of Reporter</TableCell>
                             <TableCell>Address</TableCell>
-                            {/* <TableCell>Status</TableCell> */}
+                            <TableCell>Status</TableCell>
                             <TableCell>Date of Incident</TableCell>
                             <TableCell>Action</TableCell>
                         </TableRow>
@@ -46,6 +46,11 @@ const IncidentReports = ({user}) => {
                             </TableCell>
                             <TableCell component="th" scope="row">
                                 {row.lat}, {row.lon}
+                            </TableCell>
+                            <TableCell component="th" scope="row">
+                                <Typography variant="caption" fontWeight={700} color={row.status == 'Pending' ? 'warning' : 'success'}>
+                                {row.status}
+                                </Typography>
                             </TableCell>
                             <TableCell component="th" scope="row">
                                 {moment(row.created_at).format("LL")}
