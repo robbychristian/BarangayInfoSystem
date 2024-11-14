@@ -21,6 +21,7 @@ class CreateIncidentReportsTable extends Migration
             $table->string('lon');
             $table->string('lat');
             $table->string('status');
+            $table->string('road');
             $table->timestamps();
         });
     }

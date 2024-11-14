@@ -356,7 +356,7 @@ export default function Navbar({ auth, role, user }) {
                                             vertical: "bottom",
                                         }}
                                     >
-                                        <MenuItem
+                                        {/* <MenuItem
                                             onClick={() => {
                                                 setAnchorEl(null);
                                                 location.href = `/profile/${userObject.id}`;
@@ -366,7 +366,7 @@ export default function Navbar({ auth, role, user }) {
                                                 <AccountCircle />
                                             </ListItemIcon>
                                             Profile
-                                        </MenuItem>
+                                        </MenuItem> */}
                                         <MenuItem
                                             onClick={() => {
                                                 setAnchorEl(null);

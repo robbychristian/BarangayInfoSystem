@@ -427,6 +427,7 @@ const RegisterPage = () => {
                                         setData={setData}
                                         my={3}
                                     />
+                                    <Typography variant="caption" className="italic" sx={{ color: "#888" }}>* Please upload your valid ID or certificate of indigency to be validated by the admin</Typography>
                                 </div>
                             </>
                         )}

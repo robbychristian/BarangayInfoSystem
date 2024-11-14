@@ -32,6 +32,7 @@ Route::post('mobilelogin', [LoginController::class, 'mobileLogin']);
 Route::post('getprofile', [ProfileController::class, 'getProfile']);
 Route::post('updateprofile', [ProfileController::class, 'updateProfile']);
 Route::post('changepassword', [ProfileController::class, 'changePassword']);
+Route::post('mobileregister', [UserManagementController::class, 'mobileRegister']);
 
 
 Route::prefix('usermanagement')->group(function() {

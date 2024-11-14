@@ -15,6 +15,7 @@ class IncidentReport extends Model
         'message',
         'lon',
         'lat',
+        'road',
         'status',
     ];
 

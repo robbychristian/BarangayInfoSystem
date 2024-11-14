@@ -69,8 +69,16 @@ const ViewIncidentReport = ({ id }) => {
             {data && (
                 <>
                 <div className="flex flex-row">
-                <Typography variant="h4" sx={{ fontWeight: '700' }}>STATUS: </Typography>
-                <Typography variant="h4" className="ml-3" sx={{ fontWeight: '700' }} color={data.status == "Pending" ? "warning" : data.status == "In Progress" ? "primary" : "success"}>{data.status}</Typography>
+                <Typography variant="h4" sx={{ fontWeight: '700' }}>TITLE: </Typography>
+                <Typography variant="h4" className="ml-3">{data.title}</Typography>
+                </div>
+                <div className="flex flex-row">
+                <Typography variant="h4" sx={{ fontWeight: '700' }}>MESSAGE: </Typography>
+                <Typography variant="h4" className="ml-3">{data.message}</Typography>
+                </div>
+                <div className="flex flex-row">
+                <Typography variant="h6" sx={{ fontWeight: '700' }}>STATUS: </Typography>
+                <Typography variant="h6" className="ml-3" sx={{ fontWeight: '700' }} color={data.status == "Pending" ? "warning" : data.status == "In Progress" ? "primary" : "success"}>{data.status}</Typography>
                 </div>
                     <MapContainer
                         style={{ height: "100%", width: "100%", marginBottom: 10 }}

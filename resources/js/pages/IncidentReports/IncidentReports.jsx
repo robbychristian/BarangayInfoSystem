@@ -45,7 +45,10 @@ const IncidentReports = ({user}) => {
                                 {row.user?.last_name}
                             </TableCell>
                             <TableCell component="th" scope="row">
-                                {row.lat}, {row.lon}
+                                <div>
+                                    {row.road}
+                                </div>
+                                ({row.lat}, {row.lon})
                             </TableCell>
                             <TableCell component="th" scope="row">
                                 <Typography variant="caption" fontWeight={700} color={row.status == 'Pending' ? 'warning' : 'success'}>

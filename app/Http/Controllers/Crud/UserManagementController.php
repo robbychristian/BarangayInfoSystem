@@ -37,4 +37,9 @@ class UserManagementController extends Controller
             'is_verified' => 1
         ]);
     }
+
+    public function mobileRegister(Request $request)
+    {
+        return $request;
+    }
 }

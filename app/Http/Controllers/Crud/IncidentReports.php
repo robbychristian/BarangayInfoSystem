@@ -30,6 +30,7 @@ class IncidentReports extends Controller
             'message' => $request->message,
             'lon' => $request->lon,
             'lat' => $request->lat,
+            'road' => $request->road,
             'status' => "Pending",
         ]);
     }
