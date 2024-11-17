@@ -7,6 +7,7 @@ use App\Http\Controllers\Crud\DocumentSubmissionController;
 use App\Http\Controllers\Crud\IncidentComplaints;
 use App\Http\Controllers\Crud\IncidentReports;
 use App\Http\Controllers\Crud\UserManagementController;
+use App\Http\Controllers\HomeController;
 use App\Models\IncidentComplaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,8 @@ Route::post('getprofile', [ProfileController::class, 'getProfile']);
 Route::post('updateprofile', [ProfileController::class, 'updateProfile']);
 Route::post('changepassword', [ProfileController::class, 'changePassword']);
 Route::post('mobileregister', [UserManagementController::class, 'mobileRegister']);
+Route::get('getalldashboarddata', [HomeController::class, 'getAllDashboardData']);
+Route::get('getuserdashboarddata', [HomeController::class, 'getUserDashboardData']);
 
 
 Route::prefix('usermanagement')->group(function() {
@@ -54,6 +57,7 @@ Route::prefix('documents')->group(function () {
     Route::get('getallincidentcomplaints', [IncidentComplaints::class, 'getAllIncidentComplaints']);
     Route::get('getresidentincidentcomplaints', [IncidentComplaints::class, 'getResidentIncidentComplaints']);
     Route::get('getincidentcomplaints', [IncidentComplaints::class, 'getIncidentComplaints']);
+    Route::post('updateincidentcomplaint', [IncidentComplaints::class, 'updateIncidentComplaint']);
 
     Route::post('addincidentreport', [IncidentReports::class, 'addIncidentReport']);
     Route::get('getresidentincidentreport', [IncidentReports::class, 'getResidentIncidentReport']);
@@ -61,5 +65,4 @@ Route::prefix('documents')->group(function () {
     Route::get('getincidentreport', [IncidentReports::class, 'getIncidentReport']);
     Route::post('updateincidentreport', [IncidentReports::class, 'updateIncidentReport']);
     Route::post('updatecertificate', [DocumentSubmissionController::class, 'updateCertificate']);
-    Route::post('updateincidentcomplaint', [IncidentComplaints::class, 'updateIncidentComplaint']);
 });
